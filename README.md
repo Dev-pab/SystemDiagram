@@ -40,3 +40,12 @@ Ce prototype représente des interfaces fonctionnelles, pas des broches physique
 `node --test core.test.js` vérifie les règles de connexion, les types personnalisés, la géométrie, l’historique, les budgets de courant, les cycles, les chemins multiples et le format JSON.
 
 Les polices Google sont facultatives ; des polices système sont utilisées hors ligne.
+
+- Sélection multiple : avec l’outil Sélection, glisser sur une zone vide pour tracer un rectangle. Les objets touchés (blocs, fils visibles, rectangles et textes) sont sélectionnés. Glisser un objet sélectionné déplace le groupe sur la grille ; Suppr le supprime, Ctrl+Z annule.
+- Le bouton Mode sombre / Mode clair mémorise le thème dans ce navigateur.
+
+- Crayon à côté d’un composant : éditer directement sa définition dans la bibliothèque (ports, type, dimensions, consommation). Sauvegarde automatique, annulation possible ; les instances existantes restent indépendantes.
+- Sélectionner SVG ou PNG en haut puis Image pour exporter tout le synoptique avec le thème et les filtres visibles. Le PNG est limité à 4096 px sur son plus grand côté.
+
+## Publication Cloudflare Workers avec GitHub
+Ajouter `build.js` et `wrangler.jsonc` à la racine du dépôt. Dans Cloudflare : nom `systemdiagram`, Build command `node build.js`, Deploy command `npx wrangler deploy`. Le script prépare les cinq fichiers publics dans `dist` ; le serveur local n’est pas déployé. Les projets et bibliothèques restent dans le navigateur, transférables en JSON.

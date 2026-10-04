@@ -15,3 +15,31 @@
 .block-resize{position:absolute;right:-5px;bottom:-5px;width:11px;height:11px;padding:0;border:2px solid #34876b;background:white;border-radius:2px;cursor:nwse-resize;display:none;z-index:4}.block.selected .block-resize,.block:hover .block-resize{display:block}.block-header>div{flex:1;min-width:0}.block-name{max-width:none}.positioned-label{max-width:calc(var(--block-width,200px) - 24px)}
 .interface-toolbar{flex-wrap:wrap}.interface-toolbar>div{flex-wrap:wrap}.block-current[hidden]{display:none}
 @media(max-width:1150px){.interface-toolbar .tool span{display:none}}
+
+.selection-marquee{fill:#4baf9a;fill-opacity:.15;stroke:#237b68;stroke-width:1.5;stroke-dasharray:5 3;pointer-events:none}
+[data-theme="dark"]{color-scheme:dark;background:#111b22;color:#d7e5e3;--border:#34434b;--green:#65c8ad}
+[data-theme="dark"] .topbar,[data-theme="dark"] .library,[data-theme="dark"] .inspector,[data-theme="dark"] .toolbar,[data-theme="dark"] .interface-toolbar,[data-theme="dark"] .button,[data-theme="dark"] .component-card,[data-theme="dark"] .block,[data-theme="dark"] .zoom-controls,[data-theme="dark"] dialog{background:#1b2931;color:#d7e5e3;border-color:#34434b}
+[data-theme="dark"] #canvas{background-color:#111b22;background-image:radial-gradient(#34434b 1px,transparent 1px)}
+[data-theme="dark"] input,[data-theme="dark"] textarea,[data-theme="dark"] select,[data-theme="dark"] .port-editor,[data-theme="dark"] .power-budget{background:#142129;color:#d7e5e3;border-color:#34434b}
+[data-theme="dark"] .brand,[data-theme="dark"] .block-name,[data-theme="dark"] .block-header,[data-theme="dark"] .tool,[data-theme="dark"] .canvas-heading,[data-theme="dark"] .positioned-label,[data-theme="dark"] .block-current{color:#d7e5e3;background-color:#1b2931}
+[data-theme="dark"] .component-icon,[data-theme="dark"] .tool.active,[data-theme="dark"] .pin-filter[aria-pressed="true"],[data-theme="dark"] .category-tabs button.active{background:#23443f;color:#8be2ca}
+[data-theme="dark"] .button:hover,[data-theme="dark"] .component-card:hover{background:#2c4149}
+[data-theme="dark"] .wire-label{fill:#d7e5e3;stroke:#111b22}
+[data-theme="dark"] .block.selected{border-color:#65c8ad}
+[data-theme="dark"] .selection-marquee{stroke:#65c8ad}
+[data-theme="dark"] .canvas-toolbar,[data-theme="dark"] .canvas-footer,[data-theme="dark"] .selection-header{background:#1b2931;color:#b2c9c3}
+[data-theme="dark"] .canvas-caption h1{color:#d7e5e3}
+[data-theme="dark"] .count{background:#23443f;color:#8be2ca}
+[data-theme="dark"] .port-type{background:#24363e;color:var(--type-color)}
+[data-theme="dark"] .port-dot{background:#142129}
+[data-theme="dark"] .field>input,[data-theme="dark"] label.field>select,[data-theme="dark"] label.field>textarea,[data-theme="dark"] form>label>input,[data-theme="dark"] form>label>select{background:#142129;color:#d7e5e3}
+.drawing-selected .drawing-text{filter:drop-shadow(0 0 2px #65c8ad)}
+/* Two nested triangles keep an actual colored outline in both themes. */
+.positioned-port .pin-out{background:var(--type-color)}
+.positioned-port .pin-out::after{content:'';position:absolute;inset:0;background:#fff;clip-path:polygon(17% 24%,68% 50%,17% 76%);pointer-events:none}
+.positioned-port.left .pin-out::after{clip-path:polygon(83% 24%,32% 50%,83% 76%)}
+[data-theme="dark"] .positioned-port .pin-out::after{background:#142129}
+.positioned-port .pin-out:hover::after,.positioned-port .pin-out.pending::after{background:var(--type-color)}
+
+.library-item{position:relative}.library-item .component-card{padding-right:40px}.library-edit{position:absolute;right:5px;top:12px;padding:5px 7px}
+.topbar{flex-wrap:wrap;height:auto;min-height:78px;padding-top:10px;padding-bottom:10px}

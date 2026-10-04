@@ -98,3 +98,12 @@ Le stockage utilise la clé `systemdiagram-v1` et contient `{ project, library }
 ## Limites connues à ne pas présenter comme des fonctions réalisées
 
 Pas de simulation électrique, de vérification des limites de courant ou de calcul de rendement. Les interfaces peuvent représenter des groupes fonctionnels (ex. SDA/SCL pour I2C), pas nécessairement des broches physiques. Le routage orthogonal ne garantit pas l’évitement de tous les obstacles. Le stockage est propre au navigateur et à l’origine ; l’export JSON permet de conserver ou transférer le travail.
+
+## Sélection multiple et thème
+- Sélection par rectangle depuis une zone vide avec l’outil Sélection ; sélectionner les objets touchés, y compris fils visibles et annotations. Glisser un objet sélectionné déplace le groupe sur la grille ; supprimer le groupe nettoie les connexions aux blocs supprimés. Une opération correspond à une annulation. Les fils gardent leurs pins et leur orthogonalité.
+- Mode sombre/clair via le bouton supérieur, préférence locale `systemdiagram-theme`, indépendante des données du projet. Préserver la lisibilité des pins et des fils.
+- Les pins de sortie triangulaires doivent présenter un contour de leur couleur de type et un centre adapté au thème, comme les entrées et les pins bidirectionnels ; préserver leur centre sur la grille et leur orientation gauche/droite.
+
+- Édition de bibliothèque par le crayon de chaque carte : modifier la définition dans l’inspecteur avec sauvegarde et historique, sans modifier les instances existantes.
+- Export graphique SVG vectoriel autonome et PNG (dimension maximale 4096 px), thème courant et filtres respectés, dessins inclus, sans poignées de sélection. Conserver les exports JSON.
+- Déploiement Workers GitHub : `node build.js` copie uniquement les cinq fichiers publics dans `dist`, puis `npx wrangler deploy` utilise `wrangler.jsonc`. Ne jamais publier toute la racine comme assets ; les captures, contexte et fichiers de développement ne font pas partie du site.

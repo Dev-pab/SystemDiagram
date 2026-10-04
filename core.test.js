@@ -14,7 +14,7 @@ function app(saved=null) {
   const context = vm.createContext({
     console,crypto:{randomUUID},CSS:{escape:s=>s},setTimeout:()=>0,clearTimeout(){},requestAnimationFrame(){},
     localStorage:{getItem:()=>saved===null?null:JSON.stringify(saved),setItem(){}},
-    document:{querySelector:element,querySelectorAll:()=>[],addEventListener(){}},
+    document:{documentElement:{dataset:{}},querySelector:element,querySelectorAll:()=>[],addEventListener(){}},
     window:{addEventListener(){}}
   });
   vm.runInContext(fs.readFileSync('drawings.js','utf8'),context);
@@ -238,4 +238,24 @@ test('legacy global consumption filter migrates to independent block settings',(
  assert.equal(run('project.blocks[0].showCurrent'),false);
  assert.equal(run('project.blocks[1].showCurrent'),true);
  assert.equal(run('project.visibility.current'),undefined);
+});
+
+test('marquee selects objects and group movement keeps routes orthogonal with undoable deletion',()=>{
+ const run=app();run('selected={kind:"multi",items:objectsInRectangle({x:-100,y:-100},{x:2000,y:2000})};const base=clone(project);base.wires.forEach(w=>w.points=wirePoints(w).slice(1,-1).map(p=>({x:p.x,y:p.y})));checkpoint();moveSelection(base,{x:50,y:20});');
+ assert.equal(run('selected.items.length'),8);
+ assert.equal(run('project.blocks[0].x'),run('base.blocks[0].x+50'));
+ assert.equal(run('project.wires.every(w=>wirePoints(w).every((p,i,ps)=>!i||p.x===ps[i-1].x||p.y===ps[i-1].y))'),true);
+ run('removeSelected()');assert.equal(run('project.blocks.length'),0);assert.equal(run('project.wires.length'),0);
+ run('history(true)');assert.equal(run('project.blocks.length'),4);
+});
+
+test('editing library definitions preserves instances and SVG export respects visibility and escaping',()=>{
+ const run=app();run('const original=project.blocks[1].name;mutate(()=>{library[0].name="MCU <test>";library[0].ports.push(port("Test","UART","io"));});');
+ assert.equal(run('project.blocks[1].name'),run('original'));
+ assert.equal(run('makeBlock(library[0],0,0).ports.length'),7);
+ run('project.blocks[1].name="MCU <test>";project.blocks[1].showCurrent=false;darkTheme=true;');
+ assert.equal(run('diagramSvg().svg.includes("MCU &lt;test&gt;")'),true);
+ assert.equal(run('diagramSvg().svg.includes("#111b22")'),true);
+ assert.equal(run('diagramSvg().svg.includes("foreignObject")'),false);
+ assert.equal(run('diagramSvg().width>0'),true);
 });
